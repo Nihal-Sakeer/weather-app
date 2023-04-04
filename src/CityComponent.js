@@ -20,7 +20,6 @@ function CityComponent(props) {
 
   return (
     <div className="input-part">
-      <h1>Weather App</h1>
       <input
         type="text"
         placeholder="Enter city name"

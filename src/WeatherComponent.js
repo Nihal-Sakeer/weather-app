@@ -1,41 +1,67 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-const WeatherComponent = (props) => {
-  const { city, country, temp, feelsLike, humidity, description, iconId } =
-    props.data;
+const WeatherComponent = ({ city, country }) => {
+  const [weatherData, setWeatherData] = useState(null);
+  const apiKey = "7554d12a44a56751a9db5fab1a7736f2";
 
-  const getWeatherIcon = (id) => {
-    if (id === 800) {
-      return "icons/clear.svg";
-    } else if (id >= 200 && id <= 232) {
-      return "icons/storm.svg";
-    } else if (id >= 600 && id <= 622) {
-      return "icons/snow.svg";
-    } else if (id >= 701 && id <= 781) {
-      return "icons/haze.svg";
-    } else if (id >= 801 && id <= 804) {
-      return "icons/cloud.svg";
-    } else if ((id >= 500 && id <= 531) || (id >= 300 && id <= 321)) {
-      return "icons/rain.svg";
-    }
-  };
+  useEffect(() => {
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${apiKey}&units=metric`;
+    axios
+      .get(apiUrl)
+      .then((response) => {
+        setWeatherData({
+          city: response.data.name,
+          country: response.data.sys.country,
+          temp: response.data.main.temp,
+          feelsLike: response.data.main.feels_like,
+          humidity: response.data.main.humidity,
+          description: response.data.weather[0].description,
+          iconId: response.data.weather[0].icon,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [city, country, apiKey]);
 
   return (
-    <div className="weather-part">
-      <img src={getWeatherIcon(iconId)} alt="weather icon" />
-      <div className="weather-info">
-        <div className="temp">
-          <span className="numb">{Math.floor(temp)}</span>
-          <sup>&deg;C</sup>
-        </div>
-        <div className="description">{description}</div>
-        <div className="location">{city + ", " + country}</div>
-        <div className="feels-like">
-          Feels Like: {Math.floor(feelsLike)}&deg;C
-        </div>
-        <div className="humidity">Humidity: {humidity}%</div>
+    <section className="weather-part">
+      <img
+        src={`http://openweathermap.org/img/w/${weatherData?.iconId}.png`}
+        alt={weatherData?.description}
+      />
+      <div className="temp">
+        <span className="numb">{weatherData?.temp}</span>
+        <span className="deg">&deg;C</span>
       </div>
-    </div>
+      <div className="weather-description">{weatherData?.description}</div>
+      <div className="location">
+        <i className="bx bx-map"></i>
+        <span>
+          {weatherData?.city}, {weatherData?.country}
+        </span>
+      </div>
+      <div className="bottom-details">
+        <div className="column feels">
+          <i className="bx bxs-thermometer"></i>
+          <div className="details">
+            <div className="temp-2">
+              <span className="numb-2">{weatherData?.feelsLike}</span>
+              <span className="deg">&deg;C</span>
+            </div>
+            <p>Feels like</p>
+          </div>
+        </div>
+        <div className="column humidity">
+          <i className="bx bxs-droplet-half"></i>
+          <div className="details">
+            <span> {weatherData?.humidity}%</span>
+            <p>Humidity</p>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };
 

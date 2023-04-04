@@ -40,6 +40,9 @@ function App() {
 
   return (
     <div className="wrapper">
+      <header>
+        <i class="bx bx-left-arrow-alt"></i>Weather App
+      </header>
       {!weatherData ? (
         <CityComponent onSearch={handleSearch} onLocation={handleLocation} />
       ) : (
