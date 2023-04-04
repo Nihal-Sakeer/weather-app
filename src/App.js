@@ -1,16 +1,16 @@
-import "./App.css";
-import WeatherComponent from "./WeatherComponent";
+import React, { useState } from "react";
 import CityComponent from "./CityComponent";
+import WeatherComponent from "./WeatherComponent";
 
-function App() {
+const App = () => {
+  const [currentWeather, setCurrentWeather] = useState(null);
+
   return (
-    <div class="wrapper">
-      <header>
-        <i class="bx bx-arrow-back"></i>Weather App
-      </header>
-      <CityComponent />
+    <div>
+      <CityComponent setCurrentWeather={setCurrentWeather} />
+      <WeatherComponent currentWeather={currentWeather} />
     </div>
   );
-}
+};
 
 export default App;

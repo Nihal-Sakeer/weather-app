@@ -2,34 +2,42 @@ import React from "react";
 import "./App.css";
 import cloud from "./icons/cloud.svg";
 
-const WeatherComponent = () => {
+const WeatherComponent = ({ currentWeather }) => {
+  if (!currentWeather) {
+    return <div>Loading...</div>;
+  }
+
+  const { name, weather, main } = currentWeather;
+  const { temp, feels_like, humidity } = main;
+  const { icon, description } = weather[0];
+
   return (
-    <section class="weather-part">
+    <section className="weather-part">
       <img src={cloud} alt="Weather Icon" />
-      <div class="temp">
-        <span class="num">13</span>
-        <span class="deg">°</span>C
+      <div className="temp">
+        <span className="num">{Math.round(main.temp - 273.15)}</span>
+        <span className="deg">°</span>C
       </div>
-      <div class="weather">broken clouds</div>
-      <div class="location">
-        <i class="bx bx-map"></i>
+      <div className="weather">broken clouds</div>
+      <div className="location">
+        <i className="bx bx-map"></i>
         <span>kerala, india</span>
       </div>
-      <div class="bottom-details">
-        <div class="column feels">
-          <i class="bx bxs-thermometer"></i>
-          <div class="details">
-            <div class="temp">
-              <span class="num-2">17</span>
-              <span class="deg">°</span>C
+      <div className="bottom-details">
+        <div className="column feels">
+          <i className="bx bxs-thermometer"></i>
+          <div className="details">
+            <div className="temp-2">
+              <span className="numb-2">{Math.round(feels_like - 273.15)}</span>
+              <span className="deg">°</span>C
             </div>
             <p>Feels like</p>
           </div>
         </div>
-        <div class="column humidity">
-          <i class="bx bxs-droplet-half"></i>
-          <div class="details">
-            <span>84%</span>
+        <div className="column humidity">
+          <i className="bx bxs-droplet-half"></i>
+          <div className="details">
+            <span>{humidity}%%</span>
             <p>Humidity</p>
           </div>
         </div>
