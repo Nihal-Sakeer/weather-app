@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import axios from "axios";
 import CityComponent from "./CityComponent";
 import WeatherComponent from "./WeatherComponent";
+import { Route, Routes, useNavigate } from "react-router-dom";
 
 const apiKey = "7554d12a44a56751a9db5fab1a7736f2";
 
 function App() {
   const [weatherData, setWeatherData] = useState(null);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const handleSearch = async (city) => {
     try {
@@ -41,13 +43,24 @@ function App() {
   return (
     <div className="wrapper">
       <header>
-        <i class="bx bx-left-arrow-alt"></i>Weather App
+        <i onClick={() => navigate("/")} className="bx bx-left-arrow-alt"></i>
+        Weather App
       </header>
-      {!weatherData ? (
-        <CityComponent onSearch={handleSearch} onLocation={handleLocation} />
-      ) : (
-        <WeatherComponent data={weatherData} />
-      )}
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <CityComponent
+              onSearch={handleSearch}
+              onLocation={handleLocation}
+            />
+          }
+        />
+        <Route
+          path="/show-weather"
+          element={<WeatherComponent data={weatherData} />}
+        />
+      </Routes>
       {error && <p>{error}</p>}
     </div>
   );

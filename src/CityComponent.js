@@ -1,8 +1,10 @@
 import "./App.css";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function CityComponent(props) {
   const [city, setCity] = useState("");
+  const navigate = useNavigate();
 
   const handleInputChange = (event) => {
     setCity(event.target.value);
@@ -16,6 +18,7 @@ function CityComponent(props) {
 
   const handleLocationClick = () => {
     props.onLocation();
+    navigate("/show-weather");
   };
 
   return (
