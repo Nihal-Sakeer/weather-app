@@ -3,6 +3,8 @@ import axios from "axios";
 import CityComponent from "./CityComponent";
 import WeatherComponent from "./WeatherComponent";
 import { Route, Routes, useNavigate } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
+// let location = useLocation();
 
 const apiKey = "7554d12a44a56751a9db5fab1a7736f2";
 
@@ -12,6 +14,8 @@ function App() {
   const navigate = useNavigate();
 
   const handleSearch = async (city) => {
+    console.log(city, "city");
+
     try {
       const response = await axios.get(
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`
@@ -43,7 +47,9 @@ function App() {
   return (
     <div className="wrapper">
       <header>
-        <i onClick={() => navigate("/")} className="bx bx-left-arrow-alt"></i>
+        {window.location.pathname !== "/" && (
+          <i onClick={() => navigate("/")} className="bx bx-left-arrow-alt"></i>
+        )}
         Weather App
       </header>
       <Routes>

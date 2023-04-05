@@ -12,6 +12,7 @@ function CityComponent(props) {
 
   const handleEnterPress = (event) => {
     if (event.key === "Enter" && city.trim() !== "") {
+      navigate("/show-weather");
       props.onSearch(city);
     }
   };

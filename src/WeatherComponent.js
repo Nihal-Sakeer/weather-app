@@ -32,18 +32,19 @@ const WeatherComponent = ({ data }) => {
   return (
     <section className="weather-part">
       <img
-        src={`http://openweathermap.org/img/w/${weatherData.iconId}.png`}
-        alt={weatherData.description}
+        src={`http://openweathermap.org/img/w/${weatherData?.iconId}.png`}
+        className="weather_icon"
+        alt={weatherData?.description}
       />
       <div className="temp">
-        <span className="numb">{weatherData.temp}</span>
+        <span className="numb">{weatherData?.temp}</span>
         <span className="deg">&deg;C</span>
       </div>
-      <div className="weather-description">{weatherData.description}</div>
+      <div className="weather-description">{weatherData?.description}</div>
       <div className="location">
         <i className="bx bx-map"></i>
         <span>
-          {weatherData.city}, {weatherData.country}
+          {weatherData?.city}, {weatherData?.country}
         </span>
       </div>
       <div className="bottom-details">
@@ -51,7 +52,7 @@ const WeatherComponent = ({ data }) => {
           <i className="bx bxs-thermometer"></i>
           <div className="details">
             <div className="temp-2">
-              <span className="numb-2">{weatherData.feelsLike}</span>
+              <span className="numb-2">{weatherData?.feelsLike}</span>
               <span className="deg">&deg;C</span>
             </div>
             <p>Feels like</p>
@@ -60,7 +61,7 @@ const WeatherComponent = ({ data }) => {
         <div className="column humidity">
           <i className="bx bxs-droplet-half"></i>
           <div className="details">
-            <span> {weatherData.humidity}%</span>
+            <span> {weatherData?.humidity}%</span>
             <p>Humidity</p>
           </div>
         </div>

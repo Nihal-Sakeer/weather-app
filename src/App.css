@@ -90,9 +90,6 @@ header i {
   justify-content: center;
   flex-direction: column;
 }
-.weatherIcon {
-  max-width: 125px;
-}
 .weather-part .temp {
   display: flex;
   font-weight: 500;
@@ -171,4 +168,7 @@ header i {
 }
 .humidity i {
   font-size: 37px;
+}
+.weather_icon {
+  width: 50%;
 }
