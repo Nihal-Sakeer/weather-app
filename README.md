@@ -1,4 +1,3 @@
-Weather App
 This is a simple weather app that displays current weather information for a given location. It is built using React and the OpenWeather API.
 
 FEATURES 
