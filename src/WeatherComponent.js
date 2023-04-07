@@ -6,8 +6,8 @@ const WeatherComponent = ({ data }) => {
   const apiKey = "7554d12a44a56751a9db5fab1a7736f2";
 
   useEffect(() => {
-    if (data?.name && data?.sys?.country) {
-      const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${data?.name},${data?.sys?.country}&appid=${apiKey}&units=metric`;
+    if (data && data.name && data.sys.country) {
+      const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${data.name},${data.sys.country}&appid=${apiKey}&units=metric`;
       console.log("called here");
       axios
         .get(apiUrl)
@@ -27,45 +27,48 @@ const WeatherComponent = ({ data }) => {
           console.log(error);
         });
     }
-  }, [apiKey, data?.name, data?.sys?.country]);
-
+  }, [apiKey, data]);
   return (
     <section className="weather-part">
-      <img
-        src={`http://openweathermap.org/img/w/${weatherData?.iconId}.png`}
-        className="weather_icon"
-        alt={weatherData?.description}
-      />
-      <div className="temp">
-        <span className="numb">{weatherData?.temp}</span>
-        <span className="deg">&deg;C</span>
-      </div>
-      <div className="weather-description">{weatherData?.description}</div>
-      <div className="location">
-        <i className="bx bx-map"></i>
-        <span>
-          {weatherData?.city}, {weatherData?.country}
-        </span>
-      </div>
-      <div className="bottom-details">
-        <div className="column feels">
-          <i className="bx bxs-thermometer"></i>
-          <div className="details">
-            <div className="temp-2">
-              <span className="numb-2">{weatherData?.feelsLike}</span>
-              <span className="deg">&deg;C</span>
+      {weatherData && (
+        <>
+          <img
+            src={`http://openweathermap.org/img/w/${weatherData.iconId}.png`}
+            className="weather_icon"
+            alt={weatherData.description}
+          />
+          <div className="temp">
+            <span className="numb">{weatherData.temp}</span>
+            <span className="deg">&deg;C</span>
+          </div>
+          <div className="weather-description">{weatherData.description}</div>
+          <div className="location">
+            <i className="bx bx-map"></i>
+            <span>
+              {weatherData.city}, {weatherData.country}
+            </span>
+          </div>
+          <div className="bottom-details">
+            <div className="column feels">
+              <i className="bx bxs-thermometer"></i>
+              <div className="details">
+                <div className="temp-2">
+                  <span className="numb-2">{weatherData.feelsLike}</span>
+                  <span className="deg">&deg;C</span>
+                </div>
+                <p>Feels like</p>
+              </div>
             </div>
-            <p>Feels like</p>
+            <div className="column humidity">
+              <i className="bx bxs-droplet-half"></i>
+              <div className="details">
+                <span> {weatherData.humidity}%</span>
+                <p>Humidity</p>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="column humidity">
-          <i className="bx bxs-droplet-half"></i>
-          <div className="details">
-            <span> {weatherData?.humidity}%</span>
-            <p>Humidity</p>
-          </div>
-        </div>
-      </div>
+        </>
+      )}
     </section>
   );
 };
